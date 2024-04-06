@@ -167,6 +167,8 @@ function updateCoreRadiationTemp() {
 
     for (let i = 0; i < CORE_RAD.boosts.length; i++) {
         let boost = CORE_RAD.boosts[i]
-        tmp.cr_boost[i] = boost.effect(b.gte(boost.req) ? amt : Decimal.dZero, b.sub(boost.req).max(0).mul(temp_eff))
+        
+        tmp.cr_boost[i] = (i === 5 && b.lt(boost.req)) ? Decimal.dOne :
+            boost.effect(b.gte(boost.req) ? amt : Decimal.dZero, b.sub(boost.req).max(0).mul(temp_eff))
     }
 }
